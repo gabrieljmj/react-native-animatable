@@ -14,11 +14,13 @@ export function getAnimationNames() {
   return Object.keys(animationRegistry);
 }
 
-export function initializeRegistryWithDefinitions(definitions) {
+ export function initializeRegistryWithDefinitions(definitions) {
   Object.keys(definitions).forEach(animationName => {
-    registerAnimation(
-      animationName,
-      createAnimation(definitions[animationName]),
-    );
+    if (animationName !== '__esModule') { // this got rid of the crash
+      registerAnimation(
+        animationName,
+        createAnimation(definitions[animationName]),
+      );
+    }
   });
 }
